@@ -1,0 +1,16 @@
+{
+  "name": "stubble",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "node_modules/.bin/mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "mocha": "^5.2.0"
+  }
+}
