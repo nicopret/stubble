@@ -4,11 +4,11 @@ const createData = require("./createData"),
     parseContract = require("./parseContract");
 
 module.exports = {
-    create() {
+    create(callback) {
         console.log(parseContract.start());
         console.log(createStructure.start());
         console.log(createData.start());
         console.log(createServer.start());
-        return true;
+        callback(true);
     }
 };
