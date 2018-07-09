@@ -1,15 +1,10 @@
 {
-    "setup": {
-        "templates_folder": "./templates"    
-    },
-    "output": {
-        "restify": {
-            "files": [ "./swagger.yaml" ],
-            "files_folder": "./templates",
-            "output_folder": "./server",
-            "port": 8080,
-            "server_file": "index.js",
-            "template": "./templates/index_restify.njk"
-        }
+    "restify": {
+        "files": [ "./swagger.yaml" ],
+        "files_folder": "./contracts",
+        "output_folder": "./server",
+        "port": 8080,
+        "server_file": "server.js",
+        "template": "./templates/restify_server.njk"
     }
 }
