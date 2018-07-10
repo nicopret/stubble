@@ -1,11 +1,16 @@
 const assert = require("assert"),
-    createServer = require("../bin/createServer");
+    config = require("../config.json"),
+    createServer = require("../bin/createServer"),
+    expect = require("expect"),
+    fs = require("fs");
 
 describe("createServer index.js", () => {
     describe("start", () => {
-        it("responds with 'create server'", () => {
-            let result = createServer.start();
-            assert.equal(result, "create server");
+        it("return true if file is created", (done) => {
+            createServer.start({}, done);
         });
+        it("check if file exists", (done) => {
+            fs.readFile([config.restify.output_folder, config.restify.start_file].join("/"), done);
+        })
     });
 });

@@ -4,7 +4,7 @@
         "files_folder": "./contracts",
         "output_folder": "./server",
         "port": 8080,
-        "server_file": "server.js",
-        "template": "./templates/restify_server.njk"
+        "start_file": "start.js",
+        "start_template": "./templates/restify_start.njk"
     }
 }
