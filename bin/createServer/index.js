@@ -25,4 +25,4 @@ module.exports = {
             fs.writeFile(params.target, content, (err, res) => callback(err, res));
         });
     }
-}
+};
