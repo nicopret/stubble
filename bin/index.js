@@ -1,4 +1,5 @@
-const config = require("../config"),
+const async = require("async"),
+    config = require("../config"),
     createData = require("./createData"),
     createServer = require("./createServer"),
     createStructure = require("./createStructure"),
@@ -7,10 +8,21 @@ const config = require("../config"),
 
 module.exports = {
     create(callback) {
-        console.log(parseContract.start());
+        async.every(config.restify.files, (item, callback) => {
+            parseContract.parse([config.restify.files_folder, config.restify.files[0]].join("/"), (err, contract) => {
+                if (err) {
+                    return console.log(err);
+                }
+                console.log(contract);
+                callback();
+            });
+        }, (err, res) => {
+            console.log(err);
+            console.log(res);
+        });
         console.log(createStructure.start());
         console.log(createData.start());
-        createServer.create({}, (err, res) => callback(err, res));
+        createServer.create({}, (err) => callback(err));
     },
     createServerPackageFile(json, callback) {
         let params = Object.assign(json, {

@@ -1,0 +1,62 @@
+swagger: "2.0"
+info:
+  description: "This is the swagger petstore contract, but with changes to better indicate the way stubble interpret the contract and create the stub server."
+  version: "1.0.0"
+  title: "Stubble Petstore"
+  license:
+    name: "ISC"
+    url: "https://www.isc.org/downloads/software-support-policy/isc-license/"
+host: "petstore.stubble.io"
+basePath: "/personel"
+tags:
+- name: "contact"
+  description: "Everything about our contact information"
+schemes:
+- "https"
+- "http"
+paths:
+  /profile:
+    get:
+      description: "Return profile information that can be used for the store's contact information"
+      operationId: "getProfile"
+      tags:
+      - "contact"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Returns a profile object"
+          schema:
+            $ref: "#/definitions/Profile"
+        401:
+          description: "Unauthorized"
+definitions:
+  Profile:
+    type: "object"
+    properties:
+      firstName:
+        description: "Contact person's first name."
+        type: "string"
+        example: "Jan"
+        maxLength: 20
+        minLength: 1
+        pattern: ^[A-z-]+
+      surname:
+        description: "Contact person's surname."
+        type: "string"
+        example: "Piet"
+        maxLength: 20
+        minLength: 1
+        pattern: ^[A-z-]+
+      cellphoneNumber:
+        description: "Contact person's cellphone number."
+        type: "string"
+        example: "0825551111"
+        pattern: \d{0,10}
+      emailAddress:
+        description: "Contact person's email address."
+        type: "string"
+        example: "cfreeman@myisp.com"
+        maxLength: 50
+        minLength: 0
+        pattern: ^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
