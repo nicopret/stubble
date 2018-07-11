@@ -4,5 +4,8 @@
   "name": "stubble-server",
   "scripts": {
     "start": "node ./start.js"
+  },
+  "devDependencies": {
+    "supertest": "^3.1.0"
   }
 }

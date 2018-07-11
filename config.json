@@ -5,6 +5,7 @@
         "output_folder": "./server",
         "port": 8080,
         "start_file": "start.js",
+        "server_template": "./templates/restify_server.njk",
         "start_template": "./templates/restify_start.njk"
     }
 }

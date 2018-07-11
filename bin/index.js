@@ -10,7 +10,7 @@ module.exports = {
         console.log(parseContract.start());
         console.log(createStructure.start());
         console.log(createData.start());
-        createServer.start({}, (err, res) => callback(err, res));
+        createServer.create({}, (err, res) => callback(err, res));
     },
     createServerPackageFile(json, callback) {
         let params = Object.assign(json, {
