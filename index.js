@@ -1,5 +1,4 @@
-const config = require("./config"),
-    fs = require("fs"),
+const fs = require("fs"),
     Stubble = require("./bin");
 
 Stubble.create((err, result) => {
