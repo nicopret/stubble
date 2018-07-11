@@ -1,7 +1,7 @@
 const fs = require("fs"),
     Stubble = require("./bin");
 
-Stubble.create((err, result) => {
+Stubble.create((errs) => {
     if (err) {
         console.log(err);
         return;
