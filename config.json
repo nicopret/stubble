@@ -1,6 +1,6 @@
 {
     "restify": {
-        "files": [ "./swagger.yaml" ],
+        "files": [ "personel.yaml" ],
         "files_folder": "./contracts",
         "output_folder": "./server",
         "port": 8080,
