@@ -1,10 +1,10 @@
 const restify = require("restify");
 
-module.exports = (global) => {
+module.exports = () => {
     const server = restify.createServer();
     server.use(restify.plugins.bodyParser({ mapParams: true }));
 
-    server.get('/', (req, res, next) => 
+    server.get('/', (req, res) => 
         res.send(200, {})
     );
 

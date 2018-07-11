@@ -1,7 +1,5 @@
-const assert = require("assert"),
-    config = require("../config.json"),
+const config = require("../config.json"),
     createServer = require("../bin/createServer"),
-    expect = require("expect"),
     fs = require("fs");
 
 describe("createServer index.js", () => {
