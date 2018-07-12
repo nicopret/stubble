@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "jsdoc": "jsdoc -c ./conf.json -r",
     "start": "node ./index.js",
     "test": "node_modules/.bin/mocha"
   },
@@ -12,6 +13,7 @@
   "devDependencies": {
     "assert": "^1.4.1",
     "expect": "^23.3.0",
+    "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
   },
   "dependencies": {

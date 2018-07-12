@@ -1,3 +1,6 @@
+/**
+ * @fileOverview This file is the main entry point for the server creation and controls the flow of the application.
+ */
 const async = require("async"),
     config = require("../config"),
     createData = require("./createData"),
@@ -7,6 +10,11 @@ const async = require("async"),
     parseContract = require("./parseContract");
 
 module.exports = {
+    /**
+     * This module serves as the entry point, it reads an array of swagger contracts from the config.json file and return the swagger object
+     * @module bin/create
+     * @param {boolean} callback Either true or false, pending the outcome of the operation
+     */
     create(callback) {
         async.every(config.restify.files, (item, callback) => {
             parseContract.parse([config.restify.files_folder, config.restify.files[0]].join("/"), (err, contract) => {
@@ -22,8 +30,14 @@ module.exports = {
         });
         console.log(createStructure.start());
         console.log(createData.start());
-        createServer.create({}, (err) => callback(err));
+        createServer.create({}, (err) => callback(err ? true : false));
     },
+    /**
+     * This module creates a package.json file for the server implementation
+     * @module bin/createServerPackageFile
+     * @param {file} json 
+     * @param {*} callback 
+     */
     createServerPackageFile(json, callback) {
         let params = Object.assign(json, {
             main: config.restify.start_file,
