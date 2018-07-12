@@ -4,6 +4,13 @@ const async = require("async"),
     nunjucks = require("nunjucks");
 
 module.exports = {
+    /**
+     * This module creates the array of server controllers that need to be created.
+     * @module createServer/create
+     * 
+     * @param {object} structure The structure object that will be used to create the mock server
+     * @param {*} callback returns either an error or true
+     */
     create(structure, callback) {
         async.every([{
             structure: structure,
@@ -17,6 +24,13 @@ module.exports = {
             this.render(item, () => callback());
         }, (err) => callback(err ? err : true));
     },
+    /**
+     * This module creates the js files by combining the structure object and nunjucks template
+     * @module createServer/render
+     * 
+     * @param {object} params 
+     * @param {*} callback 
+     */
     render(params, callback) {
         nunjucks.render(params.template, params.structure, (err, content) => {
             if (err) {
