@@ -1,0 +1,15 @@
+const supertest = require("supertest");
+const server = require("../app/server")
+
+describe('server', () => {
+    const global = {};
+    const request = supertest(server(global));
+
+    describe('GET /', () => {
+        before(() => {
+            global.index = () => new Promise((resolve, reject) => resolve({}));
+        });
+
+        it("responds with OK", () => request.get("/").expect(200));
+    });
+});

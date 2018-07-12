@@ -1,8 +1,19 @@
 {
-  "dependencies": {},
-  "main": "start.js",
   "name": "stubble-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.js",
   "scripts": {
-    "start": "node ./start.js"
+    "start": "node ./start.js",
+    "test": "node_modules/.bin/mocha"
+  },
+  "author": "Nico Pretorius",
+  "license": "ISC",
+  "devDependencies": {
+    "save-dev": "^2.0.0",
+    "supertest": "^3.1.0"
+  },
+  "dependencies": {
+    "restify": "^7.2.1"
   }
 }

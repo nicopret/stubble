@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "create": "node ./index.js",
     "jsdoc": "jsdoc -c ./conf.json -r",
-    "start": "node ./index.js",
     "test": "node_modules/.bin/mocha"
   },
   "author": "Nico Pretorius",

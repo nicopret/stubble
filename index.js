@@ -3,6 +3,7 @@ const fs = require("fs"),
 
 Stubble.create((err) => {
     if (err) {
+        console.log('-------------------------');
         console.log(err);
         return;
     }

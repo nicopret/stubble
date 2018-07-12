@@ -43,10 +43,17 @@ module.exports = {
             main: config.restify.start_file,
             name: "stubble-server",
             scripts: {
-                start: "node ./" + config.restify.start_file
+                start: "node ./" + config.restify.start_file,
+                test: "node_modules/.bin/mocha"
+            },
+            devDependencies: {
+                "save-dev": "^2.0.0",
+                "supertest": "^3.1.0"        
             }
         });
+        delete params.dependencies.async;
         delete params.dependencies.nunjucks;
+        delete params.dependencies["swagger-parser"];
         fs.writeFile([config.restify.output_folder, "package.json"].join("/"),
             JSON.stringify(params, null, 2), (err) => callback(err, true));
     }
