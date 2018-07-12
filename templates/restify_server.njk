@@ -1,12 +1,11 @@
-const restify = require("restify");
+const restify = require("restify"),
+    GlobalController = require("./controllers/global");
 
-module.exports = (global) => {
+const global = new GlobalController();
+
+module.exports = () => {
     const server = restify.createServer();
-    server.use(restify.plugins.bodyParser({ mapParams: true }));
-
-    server.get('/', (req, res, next) => 
-        res.send(200, {})
-    );
+    server.get("/", (req, res, next) => global.index().then((result) => res.send(200)));
 
     return server;
-}
+};

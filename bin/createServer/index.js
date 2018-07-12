@@ -20,9 +20,17 @@ module.exports = {
             structure: structure,
             target: [config.restify.output_folder, "app", "server.js"].join("/"),
             template: config.restify.server_template
+        }, {
+            structure: structure,
+            target: [config.restify.output_folder, "app", "controllers", "global.js"].join("/"),
+            template: config.restify.controller_template
+        }, {
+            structure: structure,
+            target: [config.restify.output_folder, "test", "server.js"].join("/"),
+            template: config.restify.test_server_template
         }], (item, callback) => {
-            this.render(item, () => callback());
-        }, (err) => callback(err ? err : true));
+            this.render(item, (err, res) => callback(err, res));
+        }, (err) => callback(err));
     },
     /**
      * This module creates the js files by combining the structure object and nunjucks template
