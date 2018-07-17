@@ -3,7 +3,7 @@
         "controller_template": "./templates/restify_controller.njk",
         "files": [ "personel.yaml" ],
         "files_folder": "./contracts",
-        "output_folder": "./server",
+        "output_folder": "/server",
         "port": 8080,
         "start_file": "start.js",
         "server_template": "./templates/restify_server.njk",

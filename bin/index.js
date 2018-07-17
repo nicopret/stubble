@@ -1,13 +1,25 @@
-/**
- * @fileOverview This file is the main entry point for the server creation and controls the flow of the application.
- */
 const async = require("async"),
     config = require("../config"),
     createData = require("./createData"),
     createServer = require("./createServer"),
     createStructure = require("./createStructure"),
     fs = require("fs"),
-    parseContract = require("./parseContract");
+    parseContract = require("./parseContract"),
+    path = require("path"),
+    util = require("./commonUtilities");
+
+const restify_package_json = {
+    main: config.restify.start_file,
+    name: "stubble-server",
+    scripts: {
+        start: "node ./" + config.restify.start_file,
+        test: "node_modules/.bin/mocha"
+    },
+    devDependencies: {
+        "save-dev": "^2.0.0",
+        "supertest": "^3.1.0"        
+    }
+};
 
 module.exports = {
     /**
@@ -16,21 +28,21 @@ module.exports = {
      * @param {boolean} callback Either true or false, pending the outcome of the operation
      */
     create(callback) {
-        async.every(config.restify.files, (item, callback) => {
-            parseContract.parse([config.restify.files_folder, config.restify.files[0]].join("/"), (err, contract) => {
-                if (err) {
-                    return console.log(err);
-                }
-                console.log(contract);
-                callback();
-            });
-        }, (err, res) => {
-            console.log(err);
-            console.log(res);
+        util.initFolder(config.restify.output_folder, (err) => {
+            if (err) {
+                return console.error(err);
+            }
+            async.every([
+                path.resolve(config.restify.output_folder, "app"),
+                path.resolve(config.restify.output_folder, "test"),
+                path.resolve(config.restify.output_folder, "app", "controllers")
+            ], (item, callback) => {
+                util.createFolder(item, () => callback());
+            }, (err, res) => callback(err));
         });
         console.log(createStructure.start());
         console.log(createData.start());
-        createServer.create({}, (err) => callback(err ? true : false));
+//        createServer.create({}, (err) => callback(err ? true : false));
     },
     /**
      * This module creates a package.json file for the server implementation
@@ -38,23 +50,14 @@ module.exports = {
      * @param {file} json 
      * @param {*} callback 
      */
-    createServerPackageFile(json, callback) {
-        let params = Object.assign(json, {
-            main: config.restify.start_file,
-            name: "stubble-server",
-            scripts: {
-                start: "node ./" + config.restify.start_file,
-                test: "node_modules/.bin/mocha"
-            },
-            devDependencies: {
-                "save-dev": "^2.0.0",
-                "supertest": "^3.1.0"        
-            }
-        });
+    createServerPackageFile(json, folder, callback) {
+        let params = Object.assign(json, restify_package_json);
         delete params.dependencies.async;
         delete params.dependencies.nunjucks;
         delete params.dependencies["swagger-parser"];
-        fs.writeFile([config.restify.output_folder, "package.json"].join("/"),
-            JSON.stringify(params, null, 2), (err) => callback(err, true));
+        util.renderFile({
+            file: "package.json",
+            folder: folder
+        }, JSON.stringify(params, null, 2), (err) => callback(err));
     }
 };
