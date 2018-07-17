@@ -9,7 +9,7 @@
         "allowUnknownTags": true
     },
     "source": {
-        "include": ["bin/index.js", "bin/createServer", "bin/parseContract"],
+        "include": ["bin", "bin/createServer", "bin/parseContract"],
         "includePattern": ".+\\.js(doc|x)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     },

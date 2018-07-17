@@ -1,7 +1,8 @@
 const async = require("async"),
     config = require("../../config"),
     fs = require("fs"),
-    nunjucks = require("nunjucks");
+    nunjucks = require("nunjucks"),
+    util = require("../commonUtilities");
 
 module.exports = {
     /**
@@ -14,19 +15,23 @@ module.exports = {
     create(structure, callback) {
         async.every([{
             structure: structure,
-            target: [config.restify.output_folder, config.restify.start_file].join("/"),
+            target_file: config.restify.start_file,
+            target_output: config.restify.output_folder,
             template: config.restify.start_template
         }, {
             structure: structure,
-            target: [config.restify.output_folder, "app", "server.js"].join("/"),
+            target_file: "server.js",
+            target_output: [config.restify.output_folder, "app"].join("/"),
             template: config.restify.server_template
         }, {
             structure: structure,
-            target: [config.restify.output_folder, "app", "controllers", "global.js"].join("/"),
+            target_file: "controllers",
+            target_output: [config.restify.output_folder, "app", "controllers"].join("/"),
             template: config.restify.controller_template
         }, {
             structure: structure,
-            target: [config.restify.output_folder, "test", "server.js"].join("/"),
+            target_file: "server.js",
+            target_output: [config.restify.output_folder, "test"].join("/"),
             template: config.restify.test_server_template
         }], (item, callback) => {
             this.render(item, (err, res) => callback(err, res));
@@ -44,7 +49,10 @@ module.exports = {
             if (err) {
                 callback(err);
             }
-            fs.writeFile(params.target, content, (err, res) => callback(err, res));
+            util.renderFile({
+                file: params.file,
+                folder: params.folder
+            }, content, (err, res) => callback(err, res));
         });
     }
 };
