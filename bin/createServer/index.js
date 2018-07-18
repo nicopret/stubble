@@ -68,7 +68,7 @@ module.exports = {
      * @param {*} callback 
      */
     createController(structure, callback) {
-        let folder = path.resolve(config.restify.output_folder, "app", "controller");
+        let folder = path.resolve(config.restify.output_folder, "app", "controllers");
         util.createFolder(folder, (err) => {
             if (err) {
                 return console.error(err);
