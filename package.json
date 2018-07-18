@@ -6,7 +6,7 @@
   "scripts": {
     "create": "node ./index.js",
     "jsdoc": "jsdoc -c ./conf.json -r",
-    "test": "node_modules/.bin/mocha ./test/util.unit.js ./test/index.unit.js ./test/create.structure.unit.js ./test/create.data.unit.js ./test/create.server.unit.js"
+    "test": "node_modules/.bin/mocha ./test/util.unit.js ./test/index.unit.js ./test/parse.contract.unit.js ./test/create.structure.unit.js ./test/create.data.unit.js ./test/create.server.unit.js"
   },
   "author": "Nico Pretorius",
   "license": "ISC",
