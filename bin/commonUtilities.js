@@ -23,6 +23,11 @@ function clearFolder(folder, callback) {
     }, (err) => err ? callback(err) : deleteFolder(folder, (err) => callback(err)));
 }
 
+/*
+ * Deletes a folder using a child process.
+ * @param {string} folder 
+ * @param {*} callback 
+ */
 function deleteFolder(folder, callback) {
     exec('rm -r ' + folder, (err) => callback(err));
 }

@@ -1,7 +1,6 @@
 const commons = require("./test.commons"),
     config = require("../config.json"),
     createServer = require("../bin/createServer"),
-    fs = require("fs"),
     util = require("../bin/commonUtilities");
 
 describe("createServer index.js", () => {
