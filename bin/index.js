@@ -42,7 +42,7 @@ module.exports = {
         });
         console.log(createStructure.start());
         console.log(createData.start());
-//        createServer.create({}, (err) => callback(err ? true : false));
+        createServer.create({}, (err) => callback(err ? true : false));
     },
     /**
      * This module creates a package.json file for the server implementation
