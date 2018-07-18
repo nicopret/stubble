@@ -1,20 +1,19 @@
 const async = require("async"),
     config = require("../../config"),
-    fs = require("fs"),
     nunjucks = require("nunjucks"),
     path = require("path"),
     util = require("../commonUtilities");
 
 module.exports = {
     /**
-     * This module creates the array of server controllers that need to be created.
+     * This module creates the server, it's components and the tests
+     * 
      * @module createServer/create
      * 
      * @param {object} structure The structure object that will be used to create the mock server
      * @param {*} callback returns either an error or true
      */
     create(structure, callback) {
-        console.log(structure);
         async.series([
             (callback) => util.createFolder(path.resolve(config.restify.output_folder, "test"), (err) => callback(err)),
             (callback) => {
@@ -37,13 +36,15 @@ module.exports = {
             (callback) => this.createController(structure, (err) => callback(err)),
             (callback) => this.createTest(structure, (err) => callback(err))
         ], (err) => callback(err));
-        /*
-        async.every([{
-        }], (item, callback) => {
-            this.render(item, (err, res) => callback(err, res));
-        }, (err) => callback(err));
-        */
     },
+    /**
+     * Creates the server file with all paths
+     * 
+     * @module createServer/createApp
+     * 
+     * @param {object} structure 
+     * @param {*} callback 
+     */
     createApp(structure, callback) {
         let folder = path.resolve(config.restify.output_folder, "app");
         util.createFolder(folder, (err) => {
@@ -58,6 +59,14 @@ module.exports = {
             }, (err) => callback(err));
         });
     },
+    /**
+     * Creates the controllers
+     * 
+     * @module createServer/createController
+     * 
+     * @param {object} structure 
+     * @param {*} callback 
+     */
     createController(structure, callback) {
         let folder = path.resolve(config.restify.output_folder, "app", "controller");
         util.createFolder(folder, (err) => {
@@ -72,6 +81,14 @@ module.exports = {
             }, (err) => callback(err));
         });
     },
+    /**
+     * Create the controller tests
+     * 
+     * @module createServer/createTest
+     * 
+     * @param {object} structure 
+     * @param {*} callback 
+     */
     createTest(structure, callback) {
         let folder = path.resolve(config.restify.output_folder, "test", "controllers");
         util.createFolder(folder, (err) => {
@@ -88,6 +105,7 @@ module.exports = {
     },
     /**
      * This module creates the js files by combining the structure object and nunjucks template
+     * 
      * @module createServer/render
      * 
      * @param {object} params 

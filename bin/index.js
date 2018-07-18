@@ -1,11 +1,7 @@
 const async = require("async"),
     config = require("../config"),
-    createData = require("./createData"),
     createServer = require("./createServer"),
     createStructure = require("./createStructure"),
-    fs = require("fs"),
-    parseContract = require("./parseContract"),
-    path = require("path"),
     util = require("./commonUtilities");
 
 const restify_package_json = {
@@ -42,17 +38,6 @@ module.exports = {
                 createServer.create(res, (err) => callback(err));
             });
         });
-//            async.every([
-//                ,
-//                path.resolve(config.restify.output_folder, "test"),
-//                path.resolve(config.restify.output_folder, "app", "controllers")
-//            ], (item, callback) => {
-//                util.createFolder(item, () => callback());
-//            }, (err, res) => callback(err));
-//        });
-//        console.log(createStructure.start());
-//        console.log(createData.start());
-//        createServer.create({}, (err) => callback(err ? true : false));
     },
     /**
      * This module creates a package.json file for the server implementation

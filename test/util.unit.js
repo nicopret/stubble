@@ -1,5 +1,4 @@
 const commons = require("./test.commons"),
-    path = require("path"),
     util = require("../bin/commonUtilities");
 
 describe("Test the 'bin/commonUtilities.js' functions", () => {
