@@ -17,6 +17,9 @@ const restify_package_json = {
     },
     devDependencies: {
         "save-dev": "^2.0.0",
+        "should": "^13.2.1",
+        "should-sinon": "0.0.6",
+        "sinon": "^6.1.3",
         "supertest": "^3.1.0"        
     }
 };
@@ -32,17 +35,24 @@ module.exports = {
             if (err) {
                 return console.error(err);
             }
-            async.every([
-                path.resolve(config.restify.output_folder, "app"),
-                path.resolve(config.restify.output_folder, "test"),
-                path.resolve(config.restify.output_folder, "app", "controllers")
-            ], (item, callback) => {
-                util.createFolder(item, () => callback());
-            }, (err, res) => callback(err));
+            createStructure.start(config.restify.contract_folder, config.restify.contract_files, (err, res) => {
+                if (err) {
+                    return console.error(err);
+                }
+                createServer.create(res, (err) => callback(err));
+            });
         });
-        console.log(createStructure.start());
-        console.log(createData.start());
-        createServer.create({}, (err) => callback(err ? true : false));
+//            async.every([
+//                ,
+//                path.resolve(config.restify.output_folder, "test"),
+//                path.resolve(config.restify.output_folder, "app", "controllers")
+//            ], (item, callback) => {
+//                util.createFolder(item, () => callback());
+//            }, (err, res) => callback(err));
+//        });
+//        console.log(createStructure.start());
+//        console.log(createData.start());
+//        createServer.create({}, (err) => callback(err ? true : false));
     },
     /**
      * This module creates a package.json file for the server implementation
