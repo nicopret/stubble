@@ -2,6 +2,7 @@ const async = require("async"),
     config = require("../../config"),
     fs = require("fs"),
     nunjucks = require("nunjucks"),
+    path = require("path"),
     util = require("../commonUtilities");
 
 module.exports = {
@@ -13,29 +14,77 @@ module.exports = {
      * @param {*} callback returns either an error or true
      */
     create(structure, callback) {
+        console.log(structure);
+        async.series([
+            (callback) => util.createFolder(path.resolve(config.restify.output_folder, "test"), (err) => callback(err)),
+            (callback) => {
+                this.render({
+                    structure: structure,
+                    file: config.restify.start_file,
+                    folder: config.restify.output_folder,
+                    template: config.restify.start_template
+                }, (err) => callback(err));
+            },
+            (callback) => {
+                this.render({
+                    file: "server.js",
+                    folder: path.resolve(config.restify.output_folder, "test"),
+                    structure: structure,
+                    template: config.restify.test_server_template
+                }, (err) => callback(err));
+            },
+            (callback) => this.createApp(structure, (err) => callback(err)),
+            (callback) => this.createController(structure, (err) => callback(err)),
+            (callback) => this.createTest(structure, (err) => callback(err))
+        ], (err) => callback(err));
+        /*
         async.every([{
-            structure: structure,
-            target_file: config.restify.start_file,
-            target_output: config.restify.output_folder,
-            template: config.restify.start_template
-        }, {
-            structure: structure,
-            target_file: "server.js",
-            target_output: [config.restify.output_folder, "app"].join("/"),
-            template: config.restify.server_template
-        }, {
-            structure: structure,
-            target_file: "controllers",
-            target_output: [config.restify.output_folder, "app", "controllers"].join("/"),
-            template: config.restify.controller_template
-        }, {
-            structure: structure,
-            target_file: "server.js",
-            target_output: [config.restify.output_folder, "test"].join("/"),
-            template: config.restify.test_server_template
         }], (item, callback) => {
             this.render(item, (err, res) => callback(err, res));
         }, (err) => callback(err));
+        */
+    },
+    createApp(structure, callback) {
+        let folder = path.resolve(config.restify.output_folder, "app");
+        util.createFolder(folder, (err) => {
+            if (err) {
+                return console.error(err);
+            }
+            this.render({
+                file: "server.js",
+                folder: folder,
+                structure: structure,
+                template: config.restify.server_template
+            }, (err) => callback(err));
+        });
+    },
+    createController(structure, callback) {
+        let folder = path.resolve(config.restify.output_folder, "app", "controller");
+        util.createFolder(folder, (err) => {
+            if (err) {
+                return console.error(err);
+            }
+            this.render({
+                structure: structure,
+                file: structure.controllers[0].name + ".js",
+                folder: folder,
+                template: config.restify.controller_template
+            }, (err) => callback(err));
+        });
+    },
+    createTest(structure, callback) {
+        let folder = path.resolve(config.restify.output_folder, "test", "controllers");
+        util.createFolder(folder, (err) => {
+            if (err) {
+                return console.error(err);
+            }
+            this.render({
+                structure: structure,
+                file: structure.controllers[0].name + ".js",
+                folder: folder,
+                template: config.restify.test_controller_template
+            }, (err) => callback(err));
+        });
     },
     /**
      * This module creates the js files by combining the structure object and nunjucks template

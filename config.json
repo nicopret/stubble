@@ -1,13 +1,14 @@
 {
     "restify": {
+        "contract_files": [ "personel.yaml" ],
+        "contract_folder": "./contracts",
         "controller_template": "./templates/restify_controller.njk",
-        "files": [ "personel.yaml" ],
-        "files_folder": "./contracts",
         "output_folder": "/server",
         "port": 8080,
         "start_file": "start.js",
         "server_template": "./templates/restify_server.njk",
         "start_template": "./templates/restify_start.njk",
+        "test_controller_template": "./templates/restify_test_controller.njk",
         "test_server_template": "./templates/restify_test_server.njk"
     }
 }
