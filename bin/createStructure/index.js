@@ -1,6 +1,7 @@
 var fs = require("fs"),
     path = require("path"),
-    parseContract = require("../parseContract");
+    parseContract = require("../parseContract"),
+    util = require("../commonUtilities");
 
 module.exports = {
     /**
@@ -11,7 +12,9 @@ module.exports = {
      * @param {Swagger API} contract The contr@act that is used to create the controller
      */
     createControllers(contract) {
+        let name = contract.basePath.replace("/", "");
         return {
+            controllerName: util.createControllerName(name),
             endpoints: Object.keys(contract.paths).reduce((array, item) => {
                 this.createMethods(contract.paths[item]).forEach(string => {
                     if (array.indexOf(string) < 0) {
@@ -20,7 +23,7 @@ module.exports = {
                 });
                 return array;
             }, []),
-            name: contract.basePath.replace('/', '')
+            name: name
         };
     },
     /**

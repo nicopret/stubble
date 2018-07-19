@@ -1,4 +1,5 @@
-const commons = require("./test.commons"),
+const assert = require('assert'),
+    commons = require("./test.commons"),
     util = require("../bin/commonUtilities");
 
 describe("Test the 'bin/commonUtilities.js' functions", () => {
@@ -52,5 +53,17 @@ describe("Test the 'bin/commonUtilities.js' functions", () => {
             util.deleteFolder(params.folder, done);
         });
 
+    });
+
+    describe("Test the text functions", () => {
+        it("Test camelcase", () => {
+            let res = util.createCamelcase("hello-world");
+            assert.equal(res, "helloWorld");
+        });
+
+        it("Test controller name creator", () => {
+            let res = util.createControllerName("hello-world");
+            assert.equal(res, "HelloWorldController");
+        });
     });
 });

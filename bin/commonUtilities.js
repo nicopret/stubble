@@ -33,6 +33,9 @@ function deleteFolder(folder, callback) {
 }
 
 module.exports = {
+    createCamelcase(string) {
+        return string.split("-").map((item, index) => index === 0 ? item : (item.charAt(0).toUpperCase() + item.substring(1))).join("");
+    },
     /**
      * This module creates a folder. If the folder exists it doesn't do anyting.
      * 
@@ -41,6 +44,10 @@ module.exports = {
      * @param {string} folder the folder that should be created
      * @param {*} callback returns either an error or null
      */
+    createControllerName(string) {
+        let val = this.createCamelcase(string);
+        return val.charAt(0).toUpperCase() + val.substring(1) + "Controller";
+    },
     createFolder(folder, callback) {
         fs.exists(folder, exist => {
             // without the console.log the deep folders are not created

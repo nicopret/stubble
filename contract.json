@@ -1,6 +1,7 @@
 {
   "controllers": [
     {
+      "controllerName": "PersonelController",
       "endpoints": [
         "getProfile"
       ],

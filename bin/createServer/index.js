@@ -90,13 +90,14 @@ module.exports = {
      * @param {*} callback 
      */
     createTest(structure, callback) {
+        console.log(structure.controllers[0]);
         let folder = path.resolve(config.restify.output_folder, "test", "controllers");
         util.createFolder(folder, (err) => {
             if (err) {
                 return console.error(err);
             }
             this.render({
-                structure: structure,
+                structure: structure.controllers[0],
                 file: structure.controllers[0].name + ".js",
                 folder: folder,
                 template: config.restify.test_controller_template

@@ -1,3 +1,15 @@
-var PostsController = require('../../app/controller/posts');
-var sinon = require('sinon');
-require('should-sinon');
+var {{ controllerName }} = require("../../app/controllers/{{ name }}");
+
+describe("Test the {{ controllerName }}", () => {
+
+{% for endpoint in endpoints -%}
+    describe("{{ endpoint }}()", () => {
+
+        it("test empty {{ endpoint }}()", (done) => {
+            {{ controllerName }}.{{ endpoint }}(done);
+        });
+    });
+
+{%- endfor %}
+
+});
