@@ -1,0 +1,10 @@
+{
+  "controllers": [
+    {
+      "endpoints": [
+        "getProfile"
+      ],
+      "name": "personel"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
-var path = require("path"),
+var fs = require("fs"),
+    path = require("path"),
     parseContract = require("../parseContract");
 
 module.exports = {
@@ -11,8 +12,28 @@ module.exports = {
      */
     createControllers(contract) {
         return {
+            endpoints: Object.keys(contract.paths).reduce((array, item) => {
+                this.createMethods(contract.paths[item]).forEach(string => {
+                    if (array.indexOf(string) < 0) {
+                        array.push(string);
+                    }
+                });
+                return array;
+            }, []),
             name: contract.basePath.replace('/', '')
         };
+    },
+    /**
+     * Extracts the methods and operationID per method and return that in an array
+     * 
+     * @module createStructure/createMethods
+     * 
+     * @param {object} endpoint 
+     */
+    createMethods(endpoint) {
+        return Object.keys(endpoint).map(item => {
+            return endpoint[item].operationId;
+        });
     },
     /**
      * The entry point to create the structure that will be used to create the server
@@ -32,6 +53,7 @@ module.exports = {
                 return console.error(err);
             }
             structure.controllers.push(this.createControllers(res));
+            fs.writeFile("contract.json", JSON.stringify(structure, null, 2), () => {});
             callback(null, structure);
         });
     }

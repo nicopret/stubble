@@ -6,7 +6,12 @@ const assert = require("assert"),
 
 describe("createStructure index.js", () => {
     describe("createControllers", () => {
-        let contract = {};
+        let contract = {
+            get: {
+                description: 'Return profile information that can be used for the store\'s contact information',
+                operationId: 'getProfile'
+            }
+        };
         let name = "personel";
 
         it("test the createControllers function", () => {
@@ -14,6 +19,11 @@ describe("createStructure index.js", () => {
                 let result = createStructure.createControllers(contract);
                 assert.equal(result.name, name);
             });
+        });
+
+        it("extract the methods name, createMethods()", () => {
+            let result = createStructure.createMethods(contract);
+            assert.equal(result.length > 0, true);
         });
 
     });

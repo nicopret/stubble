@@ -74,7 +74,7 @@ module.exports = {
                 return console.error(err);
             }
             this.render({
-                structure: structure,
+                structure: structure.controllers[0],
                 file: structure.controllers[0].name + ".js",
                 folder: folder,
                 template: config.restify.controller_template
