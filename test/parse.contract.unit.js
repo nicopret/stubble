@@ -5,7 +5,7 @@ const config = require("../config.json"),
 describe("parseContract index.js", () => {
     describe("parse", () => {
         it("parse swagger contract from input file", (done) => {
-            parseContract.parse(path.resolve(config.restify.files_folder, config.restify.files[0]), done);
+            parseContract.parse(path.resolve(config.restify.contract_folder, config.restify.contract_files[0]), done);
         });
     });
 });

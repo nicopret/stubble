@@ -1,11 +1,20 @@
 const assert = require("assert"),
-    createStructure = require("../bin/createStructure");
+    config = require("../config.json"),
+    createStructure = require("../bin/createStructure"),
+    parseContract = require("../bin/parseContract"),
+    path = require("path");
 
 describe("createStructure index.js", () => {
-    describe("start", () => {
-        it("responds with 'create structure'", () => {
-            let result = createStructure.start();
-            assert.equal(result, "create structure");
+    describe("createControllers", () => {
+        let contract = {};
+        let name = "personel";
+
+        it("test the createControllers function", () => {
+            parseContract.parse(path.resolve(config.restify.contract_folder, config.restify.contract_files[0]), (err, contract) => {
+                let result = createStructure.createControllers(contract);
+                assert.equal(result.name, name);
+            });
         });
+
     });
 });
