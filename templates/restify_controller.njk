@@ -1,8 +1,8 @@
 
 module.exports = {
-{% for method in endpoints -%}
+{% for item in endpoints %}
 
-    {{ method }}(callback) {
+    {{ item.operation }}(callback) {
         callback(null, {});
     }
 

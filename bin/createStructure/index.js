@@ -15,28 +15,31 @@ module.exports = {
         let name = contract.basePath.replace("/", "");
         return {
             controllerName: util.createControllerName(name),
-            endpoints: Object.keys(contract.paths).reduce((array, item) => {
-                this.createMethods(contract.paths[item]).forEach(string => {
-                    if (array.indexOf(string) < 0) {
-                        array.push(string);
-                    }
-                });
-                return array;
-            }, []),
+            endpoints: this.createResource(contract.paths),
             name: name
         };
+    },
+    createMethod(param, obj) {
+        return Object.keys(obj).map(method => {
+            param.method = method;
+            param.operation = obj[method].operationId;
+            return param;
+        })[0];
     },
     /**
      * Extracts the methods and operationID per method and return that in an array
      * 
-     * @module createStructure/createMethods
+     * @module createStructure/createResource
      * 
      * @param {object} endpoint 
      */
-    createMethods(endpoint) {
-        return Object.keys(endpoint).map(item => {
-            return endpoint[item].operationId;
+    createResource(endpoint) {
+        let temp = Object.keys(endpoint).map(item => {
+            return this.createMethod({
+                resource: item
+            }, endpoint[item]);
         });
+        return temp;
     },
     /**
      * The entry point to create the structure that will be used to create the server

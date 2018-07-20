@@ -3,7 +3,11 @@
     {
       "controllerName": "PersonelController",
       "endpoints": [
-        "getProfile"
+        {
+          "resource": "/profile",
+          "method": "get",
+          "operation": "getProfile"
+        }
       ],
       "name": "personel"
     }

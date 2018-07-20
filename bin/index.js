@@ -35,6 +35,7 @@ module.exports = {
                 if (err) {
                     return console.error(err);
                 }
+                restify_package_json.scripts.test += " ./test/server.unit.js " + res.controllers.map(item => "./test/controllers/" + item.name + ".unit.js").join(" ");
                 createServer.create(res, (err) => callback(err));
             });
         });

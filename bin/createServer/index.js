@@ -26,7 +26,7 @@ module.exports = {
             },
             (callback) => {
                 this.render({
-                    file: "server.js",
+                    file: "server.unit.js",
                     folder: path.resolve(config.restify.output_folder, "test"),
                     structure: structure,
                     template: config.restify.test_server_template
@@ -90,7 +90,6 @@ module.exports = {
      * @param {*} callback 
      */
     createTest(structure, callback) {
-        console.log(structure.controllers[0]);
         let folder = path.resolve(config.restify.output_folder, "test", "controllers");
         util.createFolder(folder, (err) => {
             if (err) {
@@ -98,7 +97,7 @@ module.exports = {
             }
             this.render({
                 structure: structure.controllers[0],
-                file: structure.controllers[0].name + ".js",
+                file: structure.controllers[0].name + ".unit.js",
                 folder: folder,
                 template: config.restify.test_controller_template
             }, (err) => callback(err));

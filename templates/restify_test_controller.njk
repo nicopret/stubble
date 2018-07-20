@@ -2,11 +2,11 @@ var {{ controllerName }} = require("../../app/controllers/{{ name }}");
 
 describe("Test the {{ controllerName }}", () => {
 
-{% for endpoint in endpoints -%}
-    describe("{{ endpoint }}()", () => {
+{% for item in endpoints %}
+    describe("{{ item.operation }}()", () => {
 
-        it("test empty {{ endpoint }}()", (done) => {
-            {{ controllerName }}.{{ endpoint }}(done);
+        it("test empty {{ item.operation }}()", (done) => {
+            {{ controllerName }}.{{ item.operation }}(done);
         });
     });
 
