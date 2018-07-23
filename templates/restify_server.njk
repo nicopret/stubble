@@ -1,7 +1,17 @@
 const restify = require("restify");
 
+{% for item in controllers -%}
+const {{ item.name }} = require("./controllers/{{ item.name }}");
+{%- endfor %}
+
 module.exports = () => {
     const server = restify.createServer();
+
+{% for endpoint in controllers -%}
+{% for item in endpoint.endpoints -%}
+    server.{{ item.method }}("{{ item.resource }}", (req, res, next) => {{ endpoint.name }}.{{ item.operation }}().then((result) => res.send(200, result)));
+{%- endfor %}
+{%- endfor %}
 
     return server;
 };

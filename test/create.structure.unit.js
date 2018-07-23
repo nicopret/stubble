@@ -23,7 +23,7 @@ describe("createStructure index.js", () => {
 
         it("extract the methods name, createMethods()", () => {
             let result = createStructure.createMethods(contract);
-            assert.equal(result.length > 0, true);
+            assert.equal(result.operation, 'getProfile');
         });
 
     });

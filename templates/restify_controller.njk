@@ -2,8 +2,8 @@
 module.exports = {
 {% for item in endpoints %}
 
-    {{ item.operation }}(callback) {
-        callback(null, {});
+    {{ item.operation }}() {
+        return new Promise((resolve, reject) => resolve({}));
     }
 
 {%- endfor %}

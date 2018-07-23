@@ -5,11 +5,20 @@ describe('server', () => {
     const global = {};
     const request = supertest(server(global));
 
-    describe('GET /', () => {
+    describe('GET non existent resource', () => {
+        it("responds with 404 error", () => request.get("/skjfksjf").expect(404));
+    });
+
+    {% for controller in controllers %}
+    {% for endpoint in controller.endpoints -%}
+    describe('GET {{ controller.resource }}', () => {
         before(() => {
             global.index = () => new Promise((resolve, reject) => resolve({}));
         });
 
-        it("responds with OK", () => request.get("/").expect(200));
+        it("responds with OK", () => request.get("{{ controller.resource }}").expect(200));
     });
+    {%- endfor %}
+    {% endfor %}
+
 });
