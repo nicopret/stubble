@@ -20,10 +20,72 @@ describe("createStructure index.js", () => {
                 assert.equal(result.name, name);
             });
         });
-
+/*
         it("extract the methods name, createMethods()", () => {
-            let result = createStructure.createMethods(contract);
-            assert.equal(result.operation, 'getProfile');
+            let result = createStructure.createMethods('get', contract);
+            console.log('***************************');
+            console.log(result);
+            assert.equal(JSON.stringify(result), '{"resource":"/profile","method":"get","operation":"getProfile"}');
+        });
+*/
+    });
+
+    describe("createStructure -> index.js -> extractMethods()", () => {
+        let contract = {
+            get: {
+                description: 'Return profile information that can be used for the store\'s contact information',
+                operationId: 'getProfile'
+            }
+        };
+        let method = 'get';
+        let name = "personel";
+        let expected = {
+            personel: [
+                {
+                    method: 'get',
+                    operation: 'getPersonel'
+                }
+            ]
+        };
+
+        it ("positive test with the correct parameters and expected output", () => {
+            let result = createStructure.extractMethods({
+                contract, method, name
+            });
+            assert.deepEqual(result, expected);
+        });
+
+        it ("negative test with contract as a null value", () => {
+            let result = createStructure.extractMethods({
+                contract: null, method, name
+            });
+            assert.equal(result, null);
+        });
+
+        it ("negative test with method as a wrong value", () => {
+            let result = createStructure.extractMethods({
+                contract, method: 'post', name
+            });
+            assert.equal(result, null);
+        });
+
+        it ("negative test with method as a null value", () => {
+            let result = createStructure.extractMethods({
+                contract, method: null, name
+            });
+            assert.equal(result, null);
+        });
+
+        it ("negative test with the name as a null value", () => {
+            let result = createStructure.extractMethods({
+                contract, method, name: null
+            });
+            assert.equal(result, null);
+        });
+
+        it ("negative test without sending parameters", () => {
+            let result = createStructure.extractMethods();
+            assert.equal(result, null);
         });
 
     });
