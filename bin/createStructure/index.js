@@ -19,13 +19,45 @@ module.exports = {
             name: name
         };
     },
-    createMethod(param, obj) {
-        return Object.keys(obj).map(method => {
+    createMethods(param, obj) {
+        let temp = Object.keys(obj).map(method => {
             param.method = method;
             param.operation = obj[method].operationId;
             return param;
-        })[0];
+        });
+        return temp;
     },
+
+    /**
+     * Extract the methods from a specific call, return null if it is invalid
+     * 
+     * @param {any} parameters 
+     * 
+     * @returns {any} returns a valid object containing the methods or null if there is an error.
+     * 
+     */
+    extractMethods(parameters) {
+        parameters = parameters || {};
+
+        let _contract = parameters.contract ? parameters.contract : null;
+        let _method = parameters.method ? parameters.method : null;
+        let _name = parameters.name ? parameters.name : null;
+
+        if (!_contract || !_method || !_name) {
+            return null;
+        }
+
+        let _values = _contract[_method];
+
+        if (!_values) {
+            return null;
+        }
+
+        return {
+            [_name]: [{ method: _method, operation: _values.operationId }]
+        };
+    },
+
     /**
      * Extracts the methods and operationID per method and return that in an array
      * 
@@ -35,7 +67,7 @@ module.exports = {
      */
     createResource(endpoint) {
         let temp = Object.keys(endpoint).map(item => {
-            return this.createMethod({
+            return this.createMethods({
                 resource: item
             }, endpoint[item]);
         });
