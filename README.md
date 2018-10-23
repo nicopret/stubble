@@ -4,7 +4,6 @@ Create a restify service with mock data from a swagger contract.
 
 Add your swagger files to config.json -> files for the type of server you want to implement.
 
-
 ### npm commands available:
 
 - `npm run jsdoc`
@@ -13,7 +12,6 @@ Add your swagger files to config.json -> files for the type of server you want t
 **This will create the mock server with mock data**
 - `npm test`
 **This will run all the tests on the create files**
-
 
 Navigate to the output folder specified in the config file and start the server with: node index.js
 

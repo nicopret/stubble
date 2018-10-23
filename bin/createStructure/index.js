@@ -20,7 +20,7 @@ module.exports = {
         };
     },
     createMethods(param, obj) {
-        let temp = Object.keys(obj).map(method => {
+        let temp = Object.keys(obj).map((method) => {
             param.method = method;
             param.operation = obj[method].operationId;
             return param;
@@ -47,14 +47,14 @@ module.exports = {
             return null;
         }
 
-        let _values = _contract[_method];
+        let values = _contract[_method];
 
-        if (!_values) {
+        if (!values) {
             return null;
         }
 
         return {
-            [_name]: [{ method: _method, operation: _values.operationId }]
+            [_name]: [{ method: _method, operation: values.operationId }]
         };
     },
 

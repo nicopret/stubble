@@ -21,17 +21,17 @@ describe("createStructure index.js", () => {
     describe("createStructure -> index.js -> extractMethods()", () => {
         let contract = {
             get: {
-                description: 'Return profile information that can be used for the store\'s contact information',
-                operationId: 'getProfile'
+                description: "Return profile information that can be used for the store's contact information",
+                operationId: "getProfile"
             }
         };
-        let method = 'get';
+        let method = "get";
         let name = "profile";
         let expected = {
             profile: [
                 {
-                    method: 'get',
-                    operation: 'getProfile'
+                    method: "get",
+                    operation: "getProfile"
                 }
             ]
         };
@@ -52,7 +52,7 @@ describe("createStructure index.js", () => {
 
         it ("negative test with method as a wrong value", () => {
             let result = createStructure.extractMethods({
-                contract, method: 'post', name
+                contract, method: "post", name
             });
             assert.equal(result, null);
         });
