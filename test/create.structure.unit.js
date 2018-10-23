@@ -6,12 +6,7 @@ const assert = require("assert"),
 
 describe("createStructure index.js", () => {
     describe("createControllers", () => {
-        let contract = {
-            get: {
-                description: 'Return profile information that can be used for the store\'s contact information',
-                operationId: 'getProfile'
-            }
-        };
+
         let name = "personel";
 
         it("test the createControllers function", () => {
@@ -20,14 +15,7 @@ describe("createStructure index.js", () => {
                 assert.equal(result.name, name);
             });
         });
-/*
-        it("extract the methods name, createMethods()", () => {
-            let result = createStructure.createMethods('get', contract);
-            console.log('***************************');
-            console.log(result);
-            assert.equal(JSON.stringify(result), '{"resource":"/profile","method":"get","operation":"getProfile"}');
-        });
-*/
+
     });
 
     describe("createStructure -> index.js -> extractMethods()", () => {
@@ -38,12 +26,12 @@ describe("createStructure index.js", () => {
             }
         };
         let method = 'get';
-        let name = "personel";
+        let name = "profile";
         let expected = {
-            personel: [
+            profile: [
                 {
                     method: 'get',
-                    operation: 'getPersonel'
+                    operation: 'getProfile'
                 }
             ]
         };
