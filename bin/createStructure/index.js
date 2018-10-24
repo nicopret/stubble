@@ -43,18 +43,12 @@ module.exports = {
         let _method = parameters.method ? parameters.method : null;
         let _name = parameters.name ? parameters.name : null;
 
-        if (!_contract || !_method || !_name) {
-            return null;
-        }
-
-        let values = _contract[_method];
-
-        if (!values) {
+        if (!_contract || !_method || !_name || _contract[_method]) {
             return null;
         }
 
         return {
-            [_name]: [{ method: _method, operation: values.operationId }]
+            [_name]: [{ method: _method, operation: _contract[_method].operationId }]
         };
     },
 
